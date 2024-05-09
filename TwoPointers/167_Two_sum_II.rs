@@ -35,12 +35,29 @@ impl Solution {
         unreachable!("constraint unsatisfied")
     }
 
+    #[allow(dead_code)]
     pub fn two_sum_elegant(numbers: Vec<i32>, target: i32) -> Vec<i32> {
         for (index, number) in numbers.iter().enumerate() {
             if let Ok(j) = numbers[index + 1..].binary_search(&(&target - number)) {
                 return vec![(index + 1) as i32, (index + 1 + j + 1) as i32];
             }
         }
+        unreachable!("constraint unsatisfied")
+    }
+
+    #[allow(dead_code)]
+    pub fn two_sum_two_pointer(numbers: Vec<i32>, target: i32) -> Vec<i32> {
+        let mut low: usize = 0;
+        let mut high = numbers.len() - 1;
+
+        while low < high {
+            match (numbers[low] + numbers[high]).cmp(&target) {
+                cmp::Ordering::Less => high -= 1,
+                cmp::Ordering::Greater => low += 1,
+                cmp::Ordering::Equal => return vec![(low + 1) as i32, (high + 1) as i32],
+            }
+        }
+
         unreachable!("constraint unsatisfied")
     }
 }

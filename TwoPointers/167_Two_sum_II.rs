@@ -6,12 +6,10 @@ impl Solution {
 
         while low <= high {
             mid = (low + high) / 2;
-            if array[mid] == target {
-                return Some(mid);
-            } else if array[mid] > target {
-                high = mid - 1;
-            } else {
-                low = mid + 1;
+            match array[mid].cmp(&target) {
+                cmp::Ordering::Equal => return Some(mid),
+                cmp::Ordering::Less => low = mid + 1,
+                cmp::Ordering::Greater => high = mid - 1,
             }
         }
 
